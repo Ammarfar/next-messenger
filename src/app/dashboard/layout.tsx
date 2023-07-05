@@ -1,4 +1,4 @@
-import { Icons } from '@/components/Icons'
+import { Icon, Icons } from '@/components/Icons'
 import SignOutButton from '@/components/SignOutButton'
 import { authOptions } from '@/lib/auth'
 import { getServerSession } from 'next-auth'
@@ -9,6 +9,7 @@ import { ReactNode } from 'react'
 import FriendRequestSidebarOptions from '@/components/FriendRequestSidebarOptions'
 import { fetchRedis } from '@/helpers/redis'
 import { getFriendsByUserId } from '@/helpers/get-friends-by-user-id'
+import SidebarChatList from '@/components/SidebarChatList'
 import { SidebarOption } from '@/types/typings'
 
 interface LayoutProps {
@@ -35,6 +36,7 @@ const Layout = async ({ children }: LayoutProps) => {
   if (!session) notFound()
 
   const friends = await getFriendsByUserId(session.user.id)
+  console.log('friends', friends)
 
   const unseenRequestCount = (
     (await fetchRedis(
@@ -58,6 +60,9 @@ const Layout = async ({ children }: LayoutProps) => {
 
         <nav className='flex flex-1 flex-col'>
           <ul role='list' className='flex flex-1 flex-col gap-y-7'>
+            <li>
+              <SidebarChatList sessionId={session.user.id} friends={friends} />
+            </li>
             <li>
               <div className='text-xs font-semibold leading-6 text-gray-400'>
                 Overview
