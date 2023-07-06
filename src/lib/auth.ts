@@ -3,6 +3,7 @@ import { UpstashRedisAdapter } from "@next-auth/upstash-redis-adapter";
 import { db } from "./db";
 import GoogleProvider from "next-auth/providers/google";
 import { fetchRedis } from "@/helpers/redis";
+import Credentials from "next-auth/providers/credentials";
 
 function getGoogleCredentials() {
   const clientId = process.env.GOOGLE_CLIENT_ID;
@@ -24,7 +25,7 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/login",
   },
@@ -32,6 +33,47 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: getGoogleCredentials().clientId,
       clientSecret: getGoogleCredentials().clientSecret,
+    }),
+    Credentials({
+      name: "credentials",
+      credentials: {
+        user: { label: "user", type: "text" },
+        password: { label: "password", type: "password" },
+      },
+      async authorize(credentials) {
+        if (!credentials?.user || !credentials?.password) {
+          throw new Error("Invalid credentials");
+        }
+
+        if (credentials.user != "admin" || credentials.password != "admin") {
+          throw new Error("User Not Found");
+        }
+
+        const userId = (await fetchRedis(
+          "get",
+          `user:email:ammarfarghani.testing@gmail.com`
+        )) as string | null;
+
+        if (!userId) {
+          throw new Error(
+            "Admin need to be registered, please call the developer"
+          );
+        }
+
+        const dbUserResult = (await fetchRedis(
+          "get",
+          `user:${userId}`
+        )) as string;
+
+        const dbUser = JSON.parse(dbUserResult) as User;
+
+        return {
+          id: dbUser.id,
+          name: dbUser.name,
+          email: dbUser.email,
+          picture: dbUser.image,
+        };
+      },
     }),
   ],
   callbacks: {
