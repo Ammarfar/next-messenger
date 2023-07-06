@@ -23,7 +23,7 @@ const page = async ({ }) => {
         -1
       )) as string[]
 
-      const lastMessage = JSON.parse(lastMessageRaw) as Message
+      const lastMessage = lastMessageRaw ? JSON.parse(lastMessageRaw) as Message : {} as Message
 
       return {
         ...friend,
