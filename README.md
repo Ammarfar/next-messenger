@@ -1,34 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# FriendZone - A full-stack realtime messaging chat application
 
-## Getting Started
+Full demo [here](<https://next-messenger-azure.vercel.app/>)
 
-First, run the development server:
+## How To Demo
+- Open 2 window browser, basic (for your account) and incognito (for admin account)
+- login using your google account in basic browser and login as admin in incognito (user-pass is 'admin')
+- in admin side, you can add friend by typing your email (if only you have registered in system by login using your google account)
+- after adding, you'll see in your account side, there's realtime notification that there's someone want to add you as friend
+- after becoming friend you can start the realtime chatting by click the profile on the sidebar
+- Happy Chatting! :D
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Realtime messaging
+- Google authentication
+- Performant database queries with Redis
+- Adding friends and sending friend requests via email
+- Responsive UI built with TailwindCSS
+- Protection of sensitive routes
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Built with
+- Next.js v13
+- TypeScript
+- Redis as Database
+- Pusher for realtime use
+- TailwindCSS
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
