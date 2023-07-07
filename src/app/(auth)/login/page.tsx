@@ -92,10 +92,15 @@ const Page: FC = () => {
             </div>
           </form>
 
+          <div className="border-t-2 border-gray-300 max-w-sm mx-auto w-full relative">
+            <div className='text-xs text-gray-400 absolute -top-[0.55rem] left-[10.7rem] bg-white px-3'>OR</div>
+          </div>
+
           <Button
             isLoading={isLoading}
             type='button'
-            className='max-w-sm mx-auto w-full'
+            variant={'ghost'}
+            className='max-w-sm mx-auto w-full border-2 border-slate-900'
             onClick={loginWithGoogle}>
             {isLoading ? null : (
               <svg
