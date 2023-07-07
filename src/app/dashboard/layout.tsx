@@ -120,7 +120,7 @@ const Layout = async ({ children }: LayoutProps) => {
                 <div className='flex flex-col'>
                   <span aria-hidden='true'>{session.user.name}</span>
                   <span className='text-xs text-zinc-400' aria-hidden='true'>
-                    {session.user.email}
+                    {session.user.email!.slice(0, 20)}..
                   </span>
                 </div>
               </div>
